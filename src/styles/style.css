@@ -1,0 +1,69 @@
+body{
+
+    margin-top:30px;
+    width:393px;
+    height:852px;
+    background-color: white;
+
+}
+
+iframe{
+    border:none;
+    width:393px;
+    height:50%;
+}
+.head{
+    display:flex;
+    justify-content: space-between;
+}
+
+.direction{
+    margin-right:15px;
+}
+/*월화수목금토일*/
+.week{
+    margin-top:20px;
+    display:flex;
+}
+
+
+.weekday{
+    text-align: center;
+    width: calc(100%/7);
+}
+
+.cal{
+    display:flex;
+    flex-wrap:wrap;
+}
+.dayContainer {
+    margin-top:5px;
+    margin-bottom:5px;
+    width: calc(100% / 7);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.listButton{
+    border: none;
+    background: none;
+    outline: none;
+    height:25px;
+    width:25px;
+    background-image:url(../assets/images/Frame2.svg);
+    background-size:cover;
+    background-repeat : no-repeat;
+}
+.daynumber{
+    margin-top:3px;
+}
+
+.goalContainer{
+    border:1px;
+    border-radius:10px;
+    background-color: bisque;
+    padding:2px;
+    width:60px;
+    margin:20px;
+}
