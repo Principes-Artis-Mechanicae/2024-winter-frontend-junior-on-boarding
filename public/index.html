@@ -8,11 +8,13 @@
   </head>
   <body>
 
-    <div class="head">
+    <div class="nav">
         <span class="month">2024년 1월</span>
+        <span></span>
         <span class="direction">
-            <button class="prev">이전</button>
-            <button class="next">다음</button>
+            <button class="prev"><</button>
+            <button class="next">></button>
+            <button class="selection">월</span>
         </span>
     </div>
     <div class="week">
@@ -153,11 +155,49 @@
               <div class="daynumber">31</div>
           </span>        
       </div>
-    <div class = goalContainer>
-        <img src="../src/assets/Frame 2.svg" alt="">
-        <span>목표</span>
-        <span>+</span>
-    </div>
+
+    <!--
+        goal-list markup
+    -->
+        <div class = goalContainer>
+            <img src="../src/assets/images/fire.svg" alt="" class="goal_icon">
+            <span class="goal_subject">목표</span>
+            <img src="../src/assets/images/plus_icon.svg" alt="" class="plus_icon">
+        </div>
+        <div class="goal_list">
+            <div class="goal">
+                <span id="goal_left">
+                    <img src="../src/assets/images/Frame2.svg" alt="" class="unchecked_icon">
+                    <a href="#myModal" class = goal_specification>할 일1</a>
+                </span>
+                <img src="../src/assets/images/more.svg" alt="" class = "ham">
+            </div>
+            <div class="goal">
+                <span id="goal_left">
+                    <img src="../src/assets/images/Frame2.svg" alt="" class="unchecked_icon">
+                    <a href="#myModal" class = goal_specification>할 일2</a>
+                </span>
+                <img src="../src/assets/images/more.svg" alt="" class = "ham">
+            </div>
+            <div class="goal">
+                <span id="goal_left">
+                    <img src="../src/assets/images/Frame2.svg" alt="" class="unchecked_icon">
+                    <a href="#myModal" class = goal_specification>할 일3</a>
+                </span>
+                <img src="../src/assets/images/more.svg" alt="" class = "ham">
+            </div>
+        </div>
+        
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div id="modal-style">
+                    <span>수정하기</span>
+                    <span>삭제하기</span>
+                </div>
+              <a href="#">닫기</a>
+            </div>
+          </div>
+
 
     
   </body>

@@ -7,22 +7,47 @@ body{
 
 }
 
-iframe{
-    border:none;
-    width:393px;
-    height:50%;
-}
-.head{
+
+.nav{
+    margin-left:20px;
+    margin-right:6px;
     display:flex;
     justify-content: space-between;
+    align-items:center;
+}
+
+.month, .selection{
+    font-weight:bold;
+    font-size:14px;
+}
+.selection{
+    font-size:12px;
 }
 
 .direction{
-    margin-right:15px;
+    margin-right:14px;
 }
+
+.prev, .next{
+    background-color:white;
+    border:none;
+
+
+}
+
+.selection{
+    margin-left:4px;
+    border:none;
+    padding:2px;
+    padding-left:8px;
+    padding-right:8px;
+    
+    border-radius: 10px;
+}
+
 /*월화수목금토일*/
 .week{
-    margin-top:20px;
+    margin-top:24px;
     display:flex;
 }
 
@@ -37,8 +62,8 @@ iframe{
     flex-wrap:wrap;
 }
 .dayContainer {
-    margin-top:5px;
-    margin-bottom:5px;
+    margin-top:6px;
+    margin-bottom:6px;
     width: calc(100% / 7);
     display:flex;
     flex-direction: column;
@@ -59,11 +84,83 @@ iframe{
     margin-top:3px;
 }
 
+/*목표추가기능*/
 .goalContainer{
-    border:1px;
-    border-radius:10px;
-    background-color: bisque;
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border:none;
+    border-radius:20px;
+    background-color:#D9D9D9;
     padding:2px;
-    width:60px;
+    width:64px;
     margin:20px;
+    margin-bottom:8px;
 }
+.goal_icon{
+    margin:2px;
+    margin-bottom:4px;
+}
+.goal_subject{
+    font-size:12px;
+    font-weight: bold;
+}
+
+.plus_icon{
+    height:12px;
+    width:12px;
+    margin:2px;
+    margin-top:0px;
+}
+
+.goal{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin:16px;
+    margin-left:20px;
+}
+
+.unchecked_icon{
+    height:16px;
+    width:16px;
+
+}
+
+.goal_specification{
+    margin-left:8px;
+    font-size:14px;
+    color:black;
+    text-decoration:none;
+
+}
+
+#goal_left{
+    display:flex;
+    align-items: center;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 300px;
+    width: 393px;
+    height: 552px;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: #D9D9D9;
+    border: 1px solid #888;
+  }
+  
+  #myModal:target {
+    display: block;
+  }
+
+  #modal-style{
+    dispaly:inline;
+  }
