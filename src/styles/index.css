@@ -169,7 +169,7 @@ body {
   border-radius: 10px;
 }
 
-.date:hover {
+.date:hover{
   box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
   cursor: pointer;
 }
