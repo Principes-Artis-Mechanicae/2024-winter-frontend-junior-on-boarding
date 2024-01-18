@@ -1,0 +1,375 @@
+* {
+  box-sizing: border-box;
+  margin: 0%;
+}
+
+:root[color-theme='light'] {
+  --background: #fff;
+  --fontColor: #000;
+}
+
+:root[color-theme='dark'] {
+  --background: #000;
+  --fontColor: #fff;
+}
+
+html {
+  width: 100%;
+  height: 100%;
+  background: var(--background);
+}
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents__wrapper {
+  padding: 8vh 8vw 8vh 8vw;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.contents__calender {
+  width: 60%;
+}
+
+.contents__toDoList {
+  width: 100%;
+}
+
+/* 
+<div class="common__icon">
+  <div class="circle" id="fir"></div>
+  <div class="circle" id="sec"></div>
+  <div class="circle" id="thr"></div>
+  <div class="circle" id="fou"></div>
+</div>
+*/
+
+.common__icon {
+  width: 45%;
+  aspect-ratio: 1/1;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.common__icon img {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* -------- Divide Line -------- */
+
+.calender__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+}
+
+.calender__title__wrapper {
+  width: 100%;
+  height: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.calender__title {
+  font-size: 20px;
+}
+
+
+.calender__btn__wrapper {
+  width: 15%;
+  height: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn img {
+  width: 100%;
+  height: 100%;
+}
+
+.calender__contents {
+  width: 100%;
+  height: 100%;
+}
+
+.calender__days {
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 5px;
+  align-items: center;
+  margin-bottom: 3px;
+}
+
+.day {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+
+}
+
+.calender__dateBoard {
+  width: 100%;
+  aspect-ratio: 5/4;
+  display: grid;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 0px 0.1vw 0px 0.1vw;
+}
+
+.date {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.date:hover {
+  box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
+  cursor: pointer;
+}
+
+.date:hover #icon{
+  content: url("../assets/icons/icon__active.svg");
+}
+
+.date__num {
+  width: 50%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
+
+/* -------- Divide Line -------- */
+
+.toDoList__wrapper {
+  width: 100%;
+  height: 100%;
+  margin-left: 10%;
+}
+
+.target__wrapper {
+  width: 100%;
+
+  margin-bottom: 20px;
+}
+
+.target {
+  width: 100px;
+  aspect-ratio: 100/28;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.target__title {
+  font-size: 16px;
+  margin: 0px 5px 0px 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.target__icon {
+  margin-left: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btn-plus-todo {
+  margin-right: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.btn-plus-todo:hover {
+  cursor: pointer;
+}
+
+.todo {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.todo__icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 25px;
+  aspect-ratio: 1/1;
+  margin-right: 8px;
+}
+
+.todo__title{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo__icon img{
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+/* -------- Divide Line -------- */
+
+@media screen and (max-width: 900px) {
+  .contents__wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .contents__calender {
+    width: 100%;
+    margin-bottom: 5%;
+  }
+
+  .calender__btn__wrapper {
+    height: 80%;
+  }
+
+  .toDoList__wrapper {
+    margin: 0px;
+    margin-left: 10px;
+  }
+
+  .calender__title {
+    font-size: 24px;
+  }
+
+  .day {
+    font-size: 18px;
+  }
+
+  .date__num {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .contents__wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contents__calender {
+    width: 100%;
+  }
+
+  .toDoList__wrapper {
+    margin: 0px;
+    margin-left: 10px;
+  }
+
+  .calender__title {
+    font-size: 18px;
+  }
+
+  .day {
+    font-size: 14px;
+  }
+
+  .date__num {
+    font-size: 14px;
+  }
+
+  .calender__btn__wrapper {
+    height: 100%;
+  }
+
+  .target {
+    width: 95px;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(216, 216, 216);
+    border-radius: 20px;
+  }
+
+  .target__title {
+    font-size: 15px;
+    margin: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .target__icon img {
+    width: 14px;
+  }
+
+  .btn-plus-todo img {
+    width: 15px;
+  }
+
+  .todo__icon{
+    width: 23px;
+
+  }
+}

@@ -1,0 +1,8 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <circle id="fir" cx="35" cy="35" r="35" fill="#000" />
+    <circle id="sec" cx="35" cy="65" r="35" fill="#000" />
+    <circle id="thr" cx="65" cy="35" r="35" fill="#000" />
+    <circle id="fou" cx="65" cy="65" r="35" fill="#000" />
+  </g>
+</svg>
