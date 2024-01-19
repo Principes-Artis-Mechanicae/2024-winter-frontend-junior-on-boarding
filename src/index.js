@@ -1,4 +1,5 @@
 let date = new Date();
+const today = new Date();
 
 const createDivWithClass = (className) => {
   const div = document.createElement('div');
@@ -13,7 +14,8 @@ const appendToParent = (parent, children) => {
 const resetSelectedDate = () => {
   const targetId = date.getDate();
   const targetDate = document.getElementById(`${targetId}`);
-  targetDate.style.boxShadow = '';
+  targetDate.querySelector('.date__num').style.backgroundColor = '';
+  targetDate.querySelector('.date__num').style.color = '';
   targetDate.querySelector('img').src = '../src/assets/icons/icon.svg';
 
 }
@@ -22,8 +24,9 @@ const selectedDate = () => {
   const targetId = date.getDate();
   const targetDate = document.getElementById(`${targetId}`);
 
-  targetDate.style.boxShadow = '1px 1px 1px 1px rgb(198, 198, 198)';
-  targetDate.querySelector('img').src = '../src/assets/icons/icon__active.svg';
+  targetDate.querySelector('.date__num').style.backgroundColor = '#000';
+  targetDate.querySelector('.date__num').style.color = '#fff';
+
 
   console.log(date);
 }
@@ -35,6 +38,7 @@ const selectDate = (event) => {
     return;
   }
   date.setDate(targetDate.id);
+  date.setHours(0);
   selectedDate();
 }
 
@@ -76,6 +80,10 @@ const renderCalender = () => {
 
     dateDiv.id = `${i}`;
 
+    if(currentMonth === today.getMonth() && currentYear === today.getFullYear() && i === today.getDate()){
+      dateNum.id = 'today';
+    }
+
     img.id = 'icon';
     img.src = '../src/assets/icons/icon.svg';
 
@@ -108,3 +116,6 @@ const prevMonth = () => {
 }
 
 renderCalender();
+
+/* 달력 렌더링 끝 */
+

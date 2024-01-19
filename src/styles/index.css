@@ -169,24 +169,21 @@ body {
   border-radius: 10px;
 }
 
-.date:hover{
-  box-shadow: 1px 1px 1px 1px rgb(198, 198, 198);
-  cursor: pointer;
-}
-
-.date:hover #icon{
-  content: url("../assets/icons/icon__active.svg");
-}
-
 .date__num {
-  width: 50%;
+  width: 20px;
+  aspect-ratio: 1/1;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 15px;
+
+  border-radius: 50%;
 }
 
+#today {
+  background-color: rgb(198, 198, 198);
+}
 /* -------- Divide Line -------- */
 
 .toDoList__wrapper {
