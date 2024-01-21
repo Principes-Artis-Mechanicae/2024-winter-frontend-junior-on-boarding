@@ -1,3 +1,5 @@
+/* 캘린더 기능 */
+
 let date = new Date();
 const today = new Date();
 
@@ -26,9 +28,6 @@ const selectedDate = () => {
 
   targetDate.querySelector('.date__num').style.backgroundColor = '#000';
   targetDate.querySelector('.date__num').style.color = '#fff';
-
-
-  console.log(date);
 }
 
 const selectDate = (event) => {
@@ -115,7 +114,32 @@ const prevMonth = () => {
   resetSelectedDate();
 }
 
+
+/* 캘린더 기능 */
+
+/* toDoList 기능 */
+//C
+const createToDo = () => {
+  const keyDate = date.toString().substring(4, 15);
+  const keyTarget = '루틴 1'
+  console.log(date);
+  window.localStorage.setItem(keyDate + ' ' + keyTarget, '약 먹기')
+}
+//R
+const renderToDoList = () => {
+  const keyDate = date.toString().substring(4, 15);
+  const keyTarget = '루틴 1'
+  console.log(window.localStorage.getItem(keyDate + ' ' + keyTarget));
+}
+//U
+const updateTodo = () => {
+
+}
+//D
+const deleteToDo = () => {
+
+}
+
+
+/* toDoList 기능 */
 renderCalender();
-
-/* 달력 렌더링 끝 */
-

@@ -24,17 +24,37 @@ body {
   height: 100%;
 }
 
+input[type="text"][disabled] {
+  color: red;
+}
+
 .wrapper {
+  padding: 5vh 8vw 8vh 8vw;
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.header{
+  width: 100%;
+  height: 3vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.header img{
+  width: 15px;
+}
+
+.btn-target:hover{
+  cursor: pointer;
+}
+
 .contents__wrapper {
-  padding: 8vh 8vw 8vh 8vw;
   width: 100%;
   height: 100%;
   display: flex;
@@ -187,7 +207,7 @@ body {
 /* -------- Divide Line -------- */
 
 .toDoList__wrapper {
-  width: 100%;
+  width: 90%;
   height: 100%;
   margin-left: 10%;
 }
@@ -199,8 +219,8 @@ body {
 }
 
 .target {
-  width: 100px;
-  aspect-ratio: 100/28;
+  width: fit-content;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -211,7 +231,8 @@ body {
 }
 
 .target__title {
-  font-size: 16px;
+  padding: 1px 1px 1px 1px;
+  font-size: 14px;
   margin: 0px 5px 0px 5px;
   display: flex;
   flex-direction: row;
@@ -219,17 +240,27 @@ body {
 }
 
 .target__icon {
+  width: 13px;
   margin-left: 3px;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
+.target__icon img{
+  width: 100%;
+}
+
 .btn-plus-todo {
+  width: 15px;
   margin-right: 3px;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.btn-plus-todo img{
+  width: 100%;
 }
 
 .btn-plus-todo:hover {
@@ -237,12 +268,11 @@ body {
 }
 
 .todo {
-  width: fit-content;
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
   margin-bottom: 10px;
 }
 
@@ -251,16 +281,27 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 25px;
+  width: 18px;
   aspect-ratio: 1/1;
-  margin-right: 8px;
+  margin-right: 5px;
 }
 
 .todo__title{
+  width: 100%;
+  border: none;
+  font-size: 14px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+.todo__title:disabled{
+  background-color: #fff;
+}
+
+.todo__title:active{
+  border: none;
 }
 
 .todo__icon img{
@@ -268,6 +309,27 @@ body {
   height: 100%;
 }
 
+.todo__content{
+  width: 100%;
+  display: flex;
+}
+
+.btn-more{
+  margin-left: 5px;
+  width: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-more:hover{
+  cursor: pointer;
+}
+
+.btn-more img{
+  width: 100%;
+  height: 100%;
+}
 
 
 
@@ -305,6 +367,30 @@ body {
   .date__num {
     font-size: 18px;
   }
+
+  .target__icon{
+    width: 16px;
+  }
+
+  .target__title{
+    font-size: 20px;
+  }
+
+  .btn-more{
+    width: 18px;
+  }
+
+  .todo__title{
+    font-size: 20px;
+  }
+
+  .btn-plus-todo img {
+    width: 15px;
+  }
+
+  .todo__icon{
+    width: 23px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -338,23 +424,8 @@ body {
     height: 100%;
   }
 
-  .target {
-    width: 95px;
-    height: 25px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    background-color: rgb(216, 216, 216);
-    border-radius: 20px;
-  }
-
   .target__title {
     font-size: 15px;
-    margin: 0px 10px 0px 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
   }
 
   .target__icon img {
@@ -367,6 +438,9 @@ body {
 
   .todo__icon{
     width: 23px;
+  }
 
+  .todo__title{
+    font-size: 15px;
   }
 }
