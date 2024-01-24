@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO Mate</title>
+
+    <link
+      rel="stylesheet"
+      media="all and (min-width:750px)"
+      href="../src/styles/style.css"
+    />
+    <link
+      rel="stylesheet"
+      media="all and (min-width:100px) and (max-width: 749px)"
+      href="../src/styles/mobile_style.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <i class="bi bi-stop-circle"></i>
+      </div>
+      <div class="icons">
+        <i class="bi bi-bell icon"></i>
+        <i class="bi bi-three-dots icon"></i>
+      </div>
+    </header>
+    <div class="main">
+      <div class="main__contents">
+        <div id="main__contents--calendar">
+          <nav>
+            <div class="year-month"></div>
+            <div class="arrows">
+              <div id="prev"><i class="bi bi-chevron-left"></i></div>
+              <div id="next"><i class="bi bi-chevron-right"></i></div>
+            </div>
+          </nav>
+          <table class="calendar">
+            <thead>
+              <tr class="weeks">
+                <th class="week-day">일</th>
+                <th class="week-day">월</th>
+                <th class="week-day">화</th>
+                <th class="week-day">수</th>
+                <th class="week-day">목</th>
+                <th class="week-day">금</th>
+                <th class="week-day">토</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="main__contents--todo">
+          <div class="todo__box">
+            <button class="todo__goal">
+              <i class="bi bi-box2 icon"></i>Daily routine
+              <i class="bi bi-plus-circle-fill icon" id="plus"></i>
+              <!-- <i class="bi bi-plus-circle icon" id="plus"></i> -->
+            </button>
+            <div class="todo__item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="34"
+                height="34"
+                viewBox="0 0 151 151"
+                fill="none"
+              >
+                <path
+                  fill="#D9D9D9"
+                  d="M100.5 50.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M150.5 50.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M150.5 100.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M100.5 100.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+              </svg>
+              <div class="todo__item--text">독서</div>
+              <i class="bi bi-three-dots icon"></i>
+            </div>
+            <div class="todo__item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="34"
+                height="34"
+                viewBox="0 0 151 151"
+                fill="none"
+              >
+                <path
+                  fill="#D9D9D9"
+                  d="M100.5 50.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M150.5 50.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M150.5 100.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M100.5 100.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+              </svg>
+              <div class="todo__item--text">운동</div>
+              <i class="bi bi-three-dots icon"></i>
+            </div>
+            <div class="todo__item">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="34"
+                height="34"
+                viewBox="0 0 151 151"
+                fill="none"
+              >
+                <path
+                  fill="#D9D9D9"
+                  d="M100.5 50.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M150.5 50.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M150.5 100.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+                <path
+                  fill="#D9D9D9"
+                  d="M100.5 100.099c0 27.614-22.386 50-50 50s-50-22.386-50-50c0-27.615 22.386-50 50-50s50 22.385 50 50Z"
+                />
+              </svg>
+              <div class="todo__item--text">글쓰기</div>
+              <i class="bi bi-three-dots icon"></i>
+            </div>
+            <!-- <ul>
+              <li class="todo__item">독서</li>
+              <li class="todo__item">글쓰기</li>
+              <li class="todo__item">운동</li>
+            </ul> -->
+          </div>
+          <!-- <div class="todo__box">
+            <div class="todo__goal">What to study</div>
+            <ul>
+              <li class="todo__item">js 공부하기</li>
+              <li class="todo__item">react</li>
+              <li class="todo__item">get-p 과제하기</li>
+            </ul>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <script src="../src/index.js"></script>
+  </body>
+</html>
