@@ -2,6 +2,23 @@
 
 let date = new Date();
 const today = new Date();
+const getToDoList = window.localStorage.getItem('toDoList');
+const updateToDoList = (data) => {
+  window.localStorage.setItem('toDoList', JSON.stringify(data));
+}
+
+if (!getToDoList) {
+  window.localStorage.setItem('toDoList', JSON.stringify({
+    "config": {
+      "type": "JSON"
+    },
+    "toDoList": {
+      "targets": ["목표 1", "목표 2"],
+      "목표 1": {},
+      "목표 2": {}
+    }
+  }));
+}
 
 const createDivWithClass = (className) => {
   const div = document.createElement('div');
@@ -19,7 +36,6 @@ const resetSelectedDate = () => {
   targetDate.querySelector('.date__num').style.backgroundColor = '';
   targetDate.querySelector('.date__num').style.color = '';
   targetDate.querySelector('img').src = '../src/assets/icons/icon.svg';
-
 }
 
 const selectedDate = () => {
@@ -79,7 +95,7 @@ const renderCalender = () => {
 
     dateDiv.id = `${i}`;
 
-    if(currentMonth === today.getMonth() && currentYear === today.getFullYear() && i === today.getDate()){
+    if (currentMonth === today.getMonth() && currentYear === today.getFullYear() && i === today.getDate()) {
       dateNum.id = 'today';
     }
 
@@ -117,29 +133,121 @@ const prevMonth = () => {
 
 /* 캘린더 기능 */
 
+// 데이터 저장 방식 : localStorage + JSON 객체
+
 /* toDoList 기능 */
+
+const openFunction = () => {
+}
+
 //C
-const createToDo = () => {
+const createToDo = (event) => {
+  const targetWrapper = event.target.closest('.target__wrapper');
+  let id = targetWrapper.id;
+  
+  const todoWrapper = targetWrapper.querySelector('.todo__wrapper');
+
+  const newTodo = createDivWithClass('todo');
+  newTodo.innerHTML = `
+  <div class="todo__content">
+    <div class="todo__icon">
+      <img id="icon" src="../src/assets/icons/icon.svg">
+    </div>
+  <input class="todo__title" type="text" onchange="saveToDo(event)">
+  </div>
+  <div class="btn-more">
+    <img id="more" src="../src/assets/icons/more.svg">
+  </div>`
+  todoWrapper.appendChild(newTodo);
+}
+
+const saveToDo = (event) => {
+  let inputValue = event.target.value;
+  const targetWrapper = event.target.closest('.target__wrapper');
+  let id = targetWrapper.id;
   const keyDate = date.toString().substring(4, 15);
-  const keyTarget = '루틴 1'
-  console.log(date);
-  window.localStorage.setItem(keyDate + ' ' + keyTarget, '약 먹기')
+  const toDoList = JSON.parse(getToDoList);
+
+  if(toDoList.toDoList[id][keyDate] == undefined){
+    toDoList.toDoList[id][keyDate] = [];
+  }
+
+  toDoList.toDoList[id][keyDate].push(inputValue);
+
+  updateToDoList(toDoList);
+
+  console.log(window.localStorage.getItem("toDoList"));
+  
+}
+
+//R
+const renderToDo = () => {
+  const keyDate = date.toString().substring(4, 15);
+  const toDoList = JSON.parse(getToDoList);
+  const targets = toDoList.toDoList.targets;
+
+}
+
+// target
+//C
+const createTarget = () => {
+  const toDoList = JSON.parse(getToDoList);
+  const targets = toDoList.toDoList.targets;
+
+  if (targets.includes('목표 3')) {
+    alert("이미 존재하는 목표입니다.")
+  }
+  else {
+    targets.push('목표 3');
+    toDoList.toDoList["목표 3"] = {};
+  }
+
+  updateToDoList(toDoList);
 }
 //R
-const renderToDoList = () => {
-  const keyDate = date.toString().substring(4, 15);
-  const keyTarget = '루틴 1'
-  console.log(window.localStorage.getItem(keyDate + ' ' + keyTarget));
+const renderTargets = () => {
+  const toDoList = JSON.parse(getToDoList).toDoList;
+  const targets = toDoList.targets;
+
+  const toDoListWrapper = document.querySelector('.toDoList__wrapper');
+
+  for (let i = 0; i < targets.length; i++) {
+    const targetWrapper = createDivWithClass('target__wrapper');
+    const targetDiv = createDivWithClass('target');
+    const targetIcon = createDivWithClass('target__icon');
+    const targetBtn = createDivWithClass('btn-plus-todo');
+    const iconImg = document.createElement('img');
+    const btnImg = document.createElement('img');
+    const targetTitle = createDivWithClass('target__title');
+    const todoWrapper = createDivWithClass('todo__wrapper');
+
+    targetWrapper.id = targets[i];
+
+    iconImg.src = '../src/assets/icons/box-seam-fill.svg';
+    btnImg.src = '../src/assets/icons/plus_icon.svg';
+
+    targetTitle.innerHTML = `${targets[i]}`;
+    targetBtn.addEventListener('click', createToDo);
+
+    appendToParent(targetIcon, [iconImg]);
+    appendToParent(targetBtn, [btnImg]);
+    appendToParent(targetDiv, [targetIcon, targetTitle, targetBtn]);
+
+    appendToParent(targetWrapper, [targetDiv, todoWrapper]);
+
+    toDoListWrapper.appendChild(targetWrapper);
+  }
 }
 //U
-const updateTodo = () => {
+const updateTarget = () => {
 
 }
 //D
-const deleteToDo = () => {
+const deleteTarget = () => {
 
 }
 
 
 /* toDoList 기능 */
 renderCalender();
+renderTargets();

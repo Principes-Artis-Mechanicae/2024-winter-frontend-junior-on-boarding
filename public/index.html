@@ -12,7 +12,7 @@
 <body>
   <div class="wrapper">
     <div class="header">
-      <img class='btn-target' src="../src/assets/icons/sliders.svg">
+      <img class='btn-target' src="../src/assets/icons/sliders.svg" onclick="openFunction();">
     </div>
     <div class="contents__wrapper">
       <div class="contents__calender">
@@ -44,13 +44,13 @@
       </div>
       <div class="contents__toDoList">
         <div class="toDoList__wrapper">
-          <div class="target__wrapper">
+          <!-- <div class="target__wrapper" id="목표 1">
             <div class="target">
               <div class="target__icon">
                 <img src="../src/assets/icons/box-seam-fill.svg">
               </div>
               <div class="target__title">목표 1</div>
-              <div class="btn-plus-todo">
+              <div class="btn-plus-todo" onclick="createToDo()">
                 <img src="../src/assets/icons/plus_icon.svg">
               </div>
             </div>
@@ -60,37 +60,17 @@
                   <div class="todo__icon">
                     <img id="icon" src="../src/assets/icons/icon.svg">
                   </div>
-                  <input class="todo__title" type="text" placeholder="hey" disabled="true">
+                  <input class="todo__title" type="text">
                 </div>
                 <div class="btn-more">
                   <img id="more" src="../src/assets/icons/more.svg">
                 </div>
               </div>
-
             </div>
-          </div>
-          <div class="target__wrapper">
-            <div class="target">
-              <div class="target__icon">
-                <img src="../src/assets/icons/box-seam-fill.svg">
-              </div>
-              <div class="target__title">목표 1</div>
-              <div class="btn-plus-todo">
-                <img src="../src/assets/icons/plus_icon.svg">
-              </div>
-            </div>
-            <div class="todo__wrapper">
-
-
-
-
-
-            </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
-
   </div>
   <script src="../src/index.js"></script>
 </body>
