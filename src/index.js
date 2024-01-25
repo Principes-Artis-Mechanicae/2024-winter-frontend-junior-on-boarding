@@ -1,13 +1,15 @@
 /* 캘린더 기능 */
-
 let date = new Date();
 const today = new Date();
-const getToDoList = window.localStorage.getItem('toDoList');
+const iconUrl = ["../src/assets/icons/icon.svg", "../src/assets/icons/icon__active.svg"]
+const getToDoList = () => {
+  return JSON.parse(window.localStorage.getItem('toDoList'));
+}
 const updateToDoList = (data) => {
   window.localStorage.setItem('toDoList', JSON.stringify(data));
 }
 
-if (!getToDoList) {
+if (!getToDoList()) {
   window.localStorage.setItem('toDoList', JSON.stringify({
     "config": {
       "type": "JSON"
@@ -18,6 +20,15 @@ if (!getToDoList) {
       "목표 2": {}
     }
   }));
+}
+
+const formatDate = (keyDate) => {
+  let dateElements = keyDate.split(' ');
+  return `${dateElements[0]}-${dateElements[1]}-${dateElements[2]}`;
+}
+
+function isObject(value) {
+  return value !== null && typeof value === 'object';
 }
 
 const createDivWithClass = (className) => {
@@ -54,6 +65,7 @@ const selectDate = (event) => {
   }
   date.setDate(targetDate.id);
   date.setHours(0);
+  renderToDo();
   selectedDate();
 }
 
@@ -68,7 +80,6 @@ const renderCalender = () => {
   const firstDay = firstDate.getDay();
 
   const dateBoard = document.querySelector('.calender__dateBoard');
-
   while (dateBoard.firstChild) {
     dateBoard.removeChild(dateBoard.firstChild);
   }
@@ -141,11 +152,13 @@ const openFunction = () => {
 }
 
 //C
-const createToDo = (event) => {
+const createToDo = async (event) => {
   const targetWrapper = event.target.closest('.target__wrapper');
   let id = targetWrapper.id;
-  
   const todoWrapper = targetWrapper.querySelector('.todo__wrapper');
+  const toDoList = getToDoList();
+  const keyDate = formatDate(date.toString().substring(4, 15));
+
 
   const newTodo = createDivWithClass('todo');
   newTodo.innerHTML = `
@@ -153,61 +166,132 @@ const createToDo = (event) => {
     <div class="todo__icon">
       <img id="icon" src="../src/assets/icons/icon.svg">
     </div>
-  <input class="todo__title" type="text" onchange="saveToDo(event)">
+  <input class="todo__title" type="text">
   </div>
   <div class="btn-more">
     <img id="more" src="../src/assets/icons/more.svg">
   </div>`
+
   todoWrapper.appendChild(newTodo);
+
+  const todoInput = newTodo.querySelector('.todo__title');
+  todoInput.addEventListener('change', saveToDo);
+
+  if (!isObject(toDoList.toDoList[id][keyDate])) {
+    toDoList.toDoList[id][keyDate] = {
+      contents : [],
+      status : {}
+    };
+    try {
+      updateToDoList(toDoList);
+    } catch (error) {
+      console.log(error)
+    };
+  }
 }
 
-const saveToDo = (event) => {
+const saveToDo = async (event) => {
   let inputValue = event.target.value;
+
   const targetWrapper = event.target.closest('.target__wrapper');
   let id = targetWrapper.id;
-  const keyDate = date.toString().substring(4, 15);
-  const toDoList = JSON.parse(getToDoList);
 
-  if(toDoList.toDoList[id][keyDate] == undefined){
-    toDoList.toDoList[id][keyDate] = [];
+  const keyDate = formatDate(date.toString().substring(4, 15));
+  const toDoList = getToDoList();
+
+  if(!toDoList.toDoList[id][keyDate].contents.includes(inputValue)){  
+    toDoList.toDoList[id][keyDate].contents.push(inputValue);
   }
+  else{
+    alert("이미 있는 목표입니다");
+    event.target.value = '';
+  }
+  toDoList.toDoList[id][keyDate].status[inputValue] = 0;
 
-  toDoList.toDoList[id][keyDate].push(inputValue);
+  try {
+    updateToDoList(toDoList);
+  } catch (error) {
+    console.log(error)
+  };
 
-  updateToDoList(toDoList);
-
-  console.log(window.localStorage.getItem("toDoList"));
-  
-}
+  event.target.disabled = true;
+};
 
 //R
 const renderToDo = () => {
-  const keyDate = date.toString().substring(4, 15);
-  const toDoList = JSON.parse(getToDoList);
+  resetToDo();
+  const keyDate = formatDate(date.toString().substring(4, 15));
+  const toDoList = getToDoList();
   const targets = toDoList.toDoList.targets;
+
+  for (let i = 0; i < targets.length; i++) {
+    const id = targets[i]
+    const todayList = toDoList.toDoList[id][keyDate];
+    if (!isObject(todayList) || todayList.contents.length == 0) {
+      continue;
+    }
+
+    for (let j = 0; j < todayList.contents.length; j++) {
+      const targetWrapper = document.getElementById(`${id}`);
+      const todoWrapper = targetWrapper.querySelector('.todo__wrapper');
+      const newTodo = createDivWithClass('todo');
+      newTodo.innerHTML = `
+        <div class="todo__content">
+          <div class="todo__icon" onclick="completeToDo(event);">
+            <img class="iconToDo" src=${iconUrl[todayList.status[todayList.contents[j]]]}>
+          </div>
+        <input class="todo__title" type="text" disabled="true" value="${todayList.contents[j]}">
+        </div>
+        <div class="btn-more">
+          <img class="moreBtn" src="../src/assets/icons/more.svg">
+        </div>`
+      todoWrapper.appendChild(newTodo);
+    }
+  }
+};
+
+const resetToDo = () => {
+  const toDoList = getToDoList();
+  const targets = toDoList.toDoList.targets;
+
+  for (let i = 0; i < targets.length; i++) {
+    const targetWrapper = document.getElementById(`${targets[i]}`);
+    const todoWrapper = targetWrapper.querySelector('.todo__wrapper');
+
+    while (todoWrapper.firstChild) {
+      todoWrapper.removeChild(todoWrapper.firstChild);
+    }
+  }
+}
+
+const deleteTodo = () => {
+
+}
+
+//U
+const completeToDo = (event) => {
+  const keyDate = formatDate(date.toString().substring(4, 15));
+  const toDoList = getToDoList();
+  const id = event.target.closest('.target__wrapper').id;
+  const value = event.target.parentNode.nextElementSibling.value;
+
+  toDoList.toDoList[id][keyDate].status[value] = 1;
+  event.target.src = iconUrl[1];
+
+  updateToDoList(toDoList);
+
 
 }
 
 // target
 //C
 const createTarget = () => {
-  const toDoList = JSON.parse(getToDoList);
-  const targets = toDoList.toDoList.targets;
 
-  if (targets.includes('목표 3')) {
-    alert("이미 존재하는 목표입니다.")
-  }
-  else {
-    targets.push('목표 3');
-    toDoList.toDoList["목표 3"] = {};
-  }
-
-  updateToDoList(toDoList);
 }
 //R
 const renderTargets = () => {
-  const toDoList = JSON.parse(getToDoList).toDoList;
-  const targets = toDoList.targets;
+  const toDoList = getToDoList()
+  const targets = toDoList.toDoList.targets;
 
   const toDoListWrapper = document.querySelector('.toDoList__wrapper');
 
@@ -247,7 +331,7 @@ const deleteTarget = () => {
 
 }
 
-
 /* toDoList 기능 */
 renderCalender();
 renderTargets();
+renderToDo();
