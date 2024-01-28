@@ -1,35 +1,31 @@
-/* 캘린더 기능 */
 let date = new Date();
 const today = new Date();
 const iconUrl = ["../src/assets/icons/icon.svg", "../src/assets/icons/icon__active.svg"]
-const getToDoList = () => {
-  return JSON.parse(window.localStorage.getItem('toDoList'));
-}
-const updateToDoList = (data) => {
-  window.localStorage.setItem('toDoList', JSON.stringify(data));
-}
 
-if (!getToDoList()) {
-  window.localStorage.setItem('toDoList', JSON.stringify({
-    "config": {
-      "type": "JSON"
-    },
-    "toDoList": {
-      "targets": ["목표 1", "목표 2"],
-      "목표 1": {},
-      "목표 2": {}
+const getStorage = (key) => {
+  return JSON.parse(window.localStorage.getItem(key));
+};
+
+const updateStorage = (key, value) => {
+  window.localStorage.setItem(key, JSON.stringify(value));
+};
+
+const setStorage = () => {
+  const targets = getStorage('targets');
+  for (let i = 0; i < targets.length; i++) {
+    if(getStorage(targets[i])){
+      continue;
     }
-  }));
+    updateStorage(targets[i], {});
+  }
 }
 
-const formatDate = (keyDate) => {
-  let dateElements = keyDate.split(' ');
-  return `${dateElements[0]}-${dateElements[1]}-${dateElements[2]}`;
-}
+const formatDate = (data) => {
+  const [month, date, year] = data.split(' ');
+  return `${month}-${date}-${year}`;
+};
 
-function isObject(value) {
-  return value !== null && typeof value === 'object';
-}
+const isObject = (value) => value !== null && typeof value === 'object';
 
 const createDivWithClass = (className) => {
   const div = document.createElement('div');
@@ -41,21 +37,19 @@ const appendToParent = (parent, children) => {
   children.forEach(child => parent.appendChild(child));
 };
 
+const selectedDate = () => {
+  const targetId = date.getDate();
+  const targetDate = document.getElementById(`${targetId}`);
+  targetDate.querySelector('.date__num').style.backgroundColor = '#000';
+  targetDate.querySelector('.date__num').style.color = '#fff';
+};
+
 const resetSelectedDate = () => {
   const targetId = date.getDate();
   const targetDate = document.getElementById(`${targetId}`);
   targetDate.querySelector('.date__num').style.backgroundColor = '';
   targetDate.querySelector('.date__num').style.color = '';
-  targetDate.querySelector('img').src = '../src/assets/icons/icon.svg';
-}
-
-const selectedDate = () => {
-  const targetId = date.getDate();
-  const targetDate = document.getElementById(`${targetId}`);
-
-  targetDate.querySelector('.date__num').style.backgroundColor = '#000';
-  targetDate.querySelector('.date__num').style.color = '#fff';
-}
+};
 
 const selectDate = (event) => {
   resetSelectedDate();
@@ -65,9 +59,10 @@ const selectDate = (event) => {
   }
   date.setDate(targetDate.id);
   date.setHours(0);
+
   renderToDo();
   selectedDate();
-}
+};
 
 const renderCalender = () => {
   const currentYear = date.getFullYear();
@@ -80,6 +75,7 @@ const renderCalender = () => {
   const firstDay = firstDate.getDay();
 
   const dateBoard = document.querySelector('.calender__dateBoard');
+
   while (dateBoard.firstChild) {
     dateBoard.removeChild(dateBoard.firstChild);
   }
@@ -102,61 +98,52 @@ const renderCalender = () => {
     const dateDiv = createDivWithClass('date');
     const dateIcon = createDivWithClass('common__icon');
     const img = document.createElement('img');
+    const todoCnt = createDivWithClass('todo__cnt');
     const dateNum = createDivWithClass('date__num');
 
     dateDiv.id = `${i}`;
+    dateNum.textContent = i;
 
     if (currentMonth === today.getMonth() && currentYear === today.getFullYear() && i === today.getDate()) {
       dateNum.id = 'today';
     }
 
     img.id = 'icon';
-    img.src = '../src/assets/icons/icon.svg';
+    img.src = iconUrl[0];
 
-    dateNum.textContent = i;
-
-    appendToParent(dateIcon, [img]);
+    appendToParent(dateIcon, [img, todoCnt]);
     appendToParent(dateDiv, [dateIcon, dateNum]);
 
     dateBoard.appendChild(dateDiv);
-  }
 
-  document.querySelectorAll('.date').forEach(date => {
-    date.addEventListener('click', selectDate);
-  });
+    }
 
+  document.querySelectorAll('.date').forEach(date => date.addEventListener('click', selectDate));
   resetSelectedDate();
   selectedDate();
-}
+};
 
 const nextMonth = () => {
   date.setMonth(date.getMonth() + 1);
   renderCalender();
-  resetSelectedDate();
-}
+  renderToDo();
+};
 
 const prevMonth = () => {
   date.setMonth(date.getMonth() - 1);
   renderCalender();
-  resetSelectedDate();
-}
+  renderToDo();
+};
 
-
-/* 캘린더 기능 */
-
-// 데이터 저장 방식 : localStorage + JSON 객체
-
-/* toDoList 기능 */
+// 데이터 저장 방식 : localStorage + JSON
 
 const openFunction = () => {
-}
+};
 
-//C
 const createToDo = async (event) => {
   const targetWrapper = event.target.closest('.target__wrapper');
-  let id = targetWrapper.id;
+  const target = getStorage(targetWrapper.id);
   const todoWrapper = targetWrapper.querySelector('.todo__wrapper');
-  const toDoList = getToDoList();
   const keyDate = formatDate(date.toString().substring(4, 15));
 
 
@@ -166,7 +153,7 @@ const createToDo = async (event) => {
     <div class="todo__icon">
       <img id="icon" src="../src/assets/icons/icon.svg">
     </div>
-  <input class="todo__title" type="text">
+  <input class="todo__title" type="text" placeholder="할 일 입력">
   </div>
   <div class="btn-more">
     <img id="more" src="../src/assets/icons/more.svg">
@@ -177,39 +164,32 @@ const createToDo = async (event) => {
   const todoInput = newTodo.querySelector('.todo__title');
   todoInput.addEventListener('change', saveToDo);
 
-  if (!isObject(toDoList.toDoList[id][keyDate])) {
-    toDoList.toDoList[id][keyDate] = {
-      contents : [],
-      status : {}
-    };
+  if (!target[keyDate]) {
+    target[keyDate] = {}
     try {
-      updateToDoList(toDoList);
+      updateStorage(targetWrapper.id, target);
     } catch (error) {
       console.log(error)
     };
   }
-}
+};
 
 const saveToDo = async (event) => {
   let inputValue = event.target.value;
 
   const targetWrapper = event.target.closest('.target__wrapper');
-  let id = targetWrapper.id;
-
+  const target = getStorage(targetWrapper.id);
   const keyDate = formatDate(date.toString().substring(4, 15));
-  const toDoList = getToDoList();
 
-  if(!toDoList.toDoList[id][keyDate].contents.includes(inputValue)){  
-    toDoList.toDoList[id][keyDate].contents.push(inputValue);
-  }
-  else{
+  while(target[keyDate][inputValue]){
     alert("이미 있는 목표입니다");
     event.target.value = '';
   }
-  toDoList.toDoList[id][keyDate].status[inputValue] = 0;
+
+  target[keyDate][inputValue] = 0;
 
   try {
-    updateToDoList(toDoList);
+    updateStorage(targetWrapper.id, target)
   } catch (error) {
     console.log(error)
   };
@@ -217,30 +197,31 @@ const saveToDo = async (event) => {
   event.target.disabled = true;
 };
 
-//R
 const renderToDo = () => {
   resetToDo();
   const keyDate = formatDate(date.toString().substring(4, 15));
-  const toDoList = getToDoList();
-  const targets = toDoList.toDoList.targets;
+  const targets = getStorage('targets');
 
   for (let i = 0; i < targets.length; i++) {
-    const id = targets[i]
-    const todayList = toDoList.toDoList[id][keyDate];
-    if (!isObject(todayList) || todayList.contents.length == 0) {
+    let todayList;
+    try{
+      todayList = Object.keys(getStorage(targets[i])[keyDate]);
+    } catch (error) {
       continue;
-    }
+    };
 
-    for (let j = 0; j < todayList.contents.length; j++) {
-      const targetWrapper = document.getElementById(`${id}`);
+    const todayListStatus = getStorage(targets[i])[keyDate];
+
+    for (let j = 0; j < todayList.length; j++) {
+      const targetWrapper = document.getElementById(`${targets[i]}`);
       const todoWrapper = targetWrapper.querySelector('.todo__wrapper');
       const newTodo = createDivWithClass('todo');
       newTodo.innerHTML = `
         <div class="todo__content">
           <div class="todo__icon" onclick="completeToDo(event);">
-            <img class="iconToDo" src=${iconUrl[todayList.status[todayList.contents[j]]]}>
+            <img class="iconToDo" src=${iconUrl[todayListStatus[todayList[j]]]}>
           </div>
-        <input class="todo__title" type="text" disabled="true" value="${todayList.contents[j]}">
+        <input class="todo__title" type="text" disabled="true" value="${todayList[j]}">
         </div>
         <div class="btn-more">
           <img class="moreBtn" src="../src/assets/icons/more.svg">
@@ -251,8 +232,7 @@ const renderToDo = () => {
 };
 
 const resetToDo = () => {
-  const toDoList = getToDoList();
-  const targets = toDoList.toDoList.targets;
+  const targets = getStorage('targets');
 
   for (let i = 0; i < targets.length; i++) {
     const targetWrapper = document.getElementById(`${targets[i]}`);
@@ -262,36 +242,30 @@ const resetToDo = () => {
       todoWrapper.removeChild(todoWrapper.firstChild);
     }
   }
-}
+};
 
-const deleteTodo = () => {
-
-}
-
-//U
 const completeToDo = (event) => {
   const keyDate = formatDate(date.toString().substring(4, 15));
-  const toDoList = getToDoList();
   const id = event.target.closest('.target__wrapper').id;
+  const todayListStatus = getStorage(id);
+
   const value = event.target.parentNode.nextElementSibling.value;
 
-  toDoList.toDoList[id][keyDate].status[value] = 1;
-  event.target.src = iconUrl[1];
+  if (todayListStatus[keyDate][value] == 0) {
+    todayListStatus[keyDate][value] = 1;
+    event.target.src = iconUrl[1];
+  } else if (todayListStatus[keyDate][value] == 1) {
+    todayListStatus[keyDate][value] = 0;
+    event.target.src = iconUrl[0];
+  } else {
+    console.log("error");
+  }
+  
+  updateStorage(id, todayListStatus);
+};
 
-  updateToDoList(toDoList);
-
-
-}
-
-// target
-//C
-const createTarget = () => {
-
-}
-//R
 const renderTargets = () => {
-  const toDoList = getToDoList()
-  const targets = toDoList.toDoList.targets;
+  const targets = getStorage('targets');
 
   const toDoListWrapper = document.querySelector('.toDoList__wrapper');
 
@@ -321,17 +295,13 @@ const renderTargets = () => {
 
     toDoListWrapper.appendChild(targetWrapper);
   }
-}
-//U
-const updateTarget = () => {
-
-}
-//D
-const deleteTarget = () => {
-
-}
+};
 
 /* toDoList 기능 */
+
+
+updateStorage("targets", ["목표 1", "목표 2"]);
+
 renderCalender();
 renderTargets();
 renderToDo();
