@@ -15,11 +15,11 @@
       <img class='btn-target' src="../src/assets/icons/sliders.svg">
     </div>
     <div class="contents__wrapper">
-      <div class="contents__calender">
-        <div class="calender__wrapper">
-          <div class="calender__title__wrapper">
-            <h1 class="calender__title"></h1>
-            <div class="calender__btn__wrapper">
+      <div class="contents__calendar">
+        <div class="calendar__wrapper">
+          <div class="calendar__title__wrapper">
+            <h1 class="calendar__title"></h1>
+            <div class="calendar__btn__wrapper">
               <div class="btn prev" onclick="prevMonth();">
                 <img class="prev" src="../src/assets/icons/chevron-left.svg">
               </div>
@@ -28,8 +28,8 @@
               </div>
             </div>
           </div>
-          <div class="calender__contents">
-            <div class="calender__days">
+          <div class="calendar__contents">
+            <div class="calendar__days">
               <div class="day">월</div>
               <div class="day">화</div>
               <div class="day">수</div>
@@ -38,7 +38,7 @@
               <div class="day">토</div>
               <div class="day">일</div>
             </div>
-            <div class="calender__dateBoard"></div>
+            <div class="calendar__dateBoard"></div>
           </div>
         </div>
       </div>
@@ -71,8 +71,27 @@
         </div>
       </div>
     </div>
+    <div class="modal" >
+      <div class="modal-contents">
+        <div class="modal__header">
+          <div class="modal__button">
+            <img class="modal__close" src="../src/assets/icons/x-lg.svg" onclick="closeModal();">
+          </div>
+        </div>
+        <div class="modal__body">
+          <div class="modal__content" id="todo__modify" onclick="modifyToDo();">
+            <img class="modify__icon" src="../src/assets/icons/pencil.svg">
+            <p>수정하기</p>
+          </div>
+          <div class="modal__content" id="todo__delete" onclick="deleteToDo();">
+            <img class="delete__icon" src="../src/assets/icons/trash.svg">
+            <p>삭제하기</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <script src="../src/index.js"></script>
+    <script src="../src/index.js"></script>
 </body>
 
 </html>

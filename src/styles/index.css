@@ -62,7 +62,7 @@ input:disabled {
   justify-content: space-between;
 }
 
-.contents__calender {
+.contents__calendar {
   width: 60%;
 }
 
@@ -102,7 +102,7 @@ input:disabled {
 
 /* -------- Divide Line -------- */
 
-.calender__wrapper {
+.calendar__wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -110,7 +110,7 @@ input:disabled {
   padding: 10px 10px 10px 10px;
 }
 
-.calender__title__wrapper {
+.calendar__title__wrapper {
   width: 100%;
   height: 5%;
   display: flex;
@@ -119,12 +119,12 @@ input:disabled {
   margin-bottom: 10px;
 }
 
-.calender__title {
+.calendar__title {
   font-size: 20px;
 }
 
 
-.calender__btn__wrapper {
+.calendar__btn__wrapper {
   width: 15%;
   height: 65%;
   display: flex;
@@ -149,12 +149,12 @@ input:disabled {
   height: 100%;
 }
 
-.calender__contents {
+.calendar__contents {
   width: 100%;
   height: 100%;
 }
 
-.calender__days {
+.calendar__days {
   width: 100%;
   height: auto;
   display: grid;
@@ -175,7 +175,7 @@ input:disabled {
 
 }
 
-.calender__dateBoard {
+.calendar__dateBoard {
   width: 100%;
   aspect-ratio: 5/4;
   display: grid;
@@ -340,6 +340,78 @@ input:disabled {
   height: 100%;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.modal-contents {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 2;
+  left: 20%;
+  bottom: 0;
+  width: 60%;
+  height: 30%;
+  overflow: auto;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.modal__header {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.modal__close {
+  margin: 2px 2px 0px 0px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__body{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.modal__body img{
+  width: 60%;
+  height: 60%;
+}
+.modal__body p{
+  height: 10%;
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.modal__content{
+  width: 45%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background-color: rgb(216, 216, 216);
+}
 
 
 /* -------- Divide Line -------- */
@@ -351,12 +423,12 @@ input:disabled {
     justify-content: flex-start;
   }
 
-  .contents__calender {
+  .contents__calendar {
     width: 100%;
     margin-bottom: 5%;
   }
 
-  .calender__btn__wrapper {
+  .calendar__btn__wrapper {
     height: 80%;
   }
 
@@ -365,7 +437,7 @@ input:disabled {
     margin-left: 10px;
   }
 
-  .calender__title {
+  .calendar__title {
     font-size: 24px;
   }
 
@@ -400,6 +472,20 @@ input:disabled {
   .todo__icon{
     width: 23px;
   }
+
+  .modal-contents{
+    left: 0;
+    width: 100%;
+  }
+
+  .modal__close {
+    margin: 2px 2px 0px 0px;
+    width: 20x;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -408,7 +494,7 @@ input:disabled {
     align-items: center;
   }
 
-  .contents__calender {
+  .contents__calendar {
     width: 100%;
   }
 
@@ -417,7 +503,7 @@ input:disabled {
     margin-left: 10px;
   }
 
-  .calender__title {
+  .calendar__title {
     font-size: 18px;
   }
 
@@ -429,7 +515,7 @@ input:disabled {
     font-size: 14px;
   }
 
-  .calender__btn__wrapper {
+  .calendar__btn__wrapper {
     height: 100%;
   }
 
