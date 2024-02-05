@@ -1,5 +1,6 @@
 let date = new Date();
 let controlToDo;
+let prevContent = 'main'
 const today = new Date();
 const iconUrl = ["../src/assets/icons/icon.svg", "../src/assets/icons/icon__active.svg"]
 const month = ['0', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -134,7 +135,7 @@ const renderCalendar = () => {
         continue;
       };
     }
-    
+
     dateDiv.id = `${i}`;
     dateNum.textContent = i;
 
@@ -144,11 +145,11 @@ const renderCalendar = () => {
 
     img.src = iconUrl[0];
     img.id = 'icon';
-    if(emptyCnt != targets.length){
-      if(cnt == 0){
+    if (emptyCnt != targets.length) {
+      if (cnt == 0) {
         img.src = iconUrl[1];
       }
-      else{
+      else {
         todoCnt.textContent = cnt;
       }
     }
@@ -180,6 +181,14 @@ const prevMonth = () => {
 // 데이터 저장 방식 : localStorage + JSON
 
 const openFunction = () => {
+  const functionModal = document.getElementById('modal-function');
+
+  if (functionModal.style.display == 'flex') {
+    functionModal.style.display = 'none';
+  } else {
+    functionModal.style.display = 'flex';
+  }
+
 };
 
 const createToDo = async (event) => {
@@ -323,8 +332,10 @@ const modifyToDo = () => {
   const todoTitle = controlToDo.querySelector('.todo__title');
   const todoPlaceholder = todoTitle.value;
   const targetId = controlToDo.closest('.target__wrapper').id;
+  const icon = controlToDo.querySelector('.iconToDo');
   const target = getStorage(targetId);
 
+  icon.src = iconUrl[0];
   todoTitle.placeholder = todoPlaceholder;
   todoTitle.disabled = false;
   todoTitle.value = '';
@@ -346,7 +357,7 @@ const deleteToDo = () => {
   const target = getStorage(targetId);
 
   delete target[keyDate][spaceToDash(todoTitle.value)];
-  if(Object.keys(target[keyDate]).length == 0){
+  if (Object.keys(target[keyDate]).length == 0) {
     delete target[keyDate];
   };
   controlToDo.remove();
@@ -371,10 +382,12 @@ const closeModal = () => {
 }
 
 const renderTargets = () => {
+
   const targets = getStorage('targets');
 
   const toDoListWrapper = document.querySelector('.toDoList__wrapper');
 
+  toDoListWrapper.innerHTML = '';
   for (let i = 0; i < targets.length; i++) {
     const targetWrapper = createDivWithClass('target__wrapper');
     const targetDiv = createDivWithClass('target');
@@ -403,10 +416,187 @@ const renderTargets = () => {
   }
 };
 
+const prevPage = () => {
+  if (prevContent != 'list') {
+    closeTargetPage();
+    openFunction();
+  }
+  else {
+    renderList();
+  }
+}
+
+const openTargetPage = () => {
+  const targetWrapper = document.getElementById('target__wrapper');
+  targetWrapper.style.display = 'flex'
+  const mainWrapper = document.getElementById('main__wrapper');
+  mainWrapper.style.display = 'none'
+}
+
+const closeTargetPage = () => {
+  const targetWrapper = document.getElementById('target__wrapper');
+  targetWrapper.style.display = 'none';
+  const mainWrapper = document.getElementById('main__wrapper');
+  mainWrapper.style.display = 'flex';
+
+  renderCalendar();
+  renderTargets();
+  renderToDo();
+}
+
+const renderPlusTarget = () => {
+  openTargetPage();
+
+  prevContent = 'list';
+  const headerWrapper = document.querySelector('.header__wrapper');
+  headerWrapper.lastChild.remove()
+
+  const targetNextBtn = document.createElement('div');
+  targetNextBtn.id = 'target-next-btn';
+  targetNextBtn.innerText = '확인';
+  targetNextBtn.addEventListener('click', createTarget);
+
+  appendToParent(headerWrapper, [targetNextBtn]);
+  const bodyContents = document.querySelector('.body__contents');
+  bodyContents.innerHTML = '';
+
+  const targetInput = document.createElement('input');
+  targetInput.className = 'target__input';
+  targetInput.placeholder = '목표 입력';
+  targetInput.focus();
+
+  bodyContents.appendChild(targetInput);
+}
+
+const renderModifyTarget = (event) => {
+  openTargetPage();
+
+  prevContent = 'list';
+
+  const headerWrapper = document.querySelector('.header__wrapper');
+  headerWrapper.lastChild.remove()
+
+  const targetNextBtn = document.createElement('div');
+  targetNextBtn.id = 'target-next-btn';
+  targetNextBtn.innerText = '확인';
+  targetNextBtn.addEventListener('click', modifyTarget);
+
+  appendToParent(headerWrapper, [targetNextBtn]);
+
+  const bodyContents = document.querySelector('.body__contents');
+  bodyContents.innerHTML = '';
+
+  const targetInput = document.createElement('input');
+  const targetDeleteBtn = document.createElement('div');
+  targetDeleteBtn.id = 'target-delete-btn';
+  targetDeleteBtn.innerText = '삭제';
+  targetDeleteBtn.addEventListener('click', deleteTarget);
+
+  targetInput.className = 'target__input';
+  targetInput.value = event.target.textContent;
+  targetInput.placeholder = event.target.textContent;
+
+
+  appendToParent(bodyContents, [targetInput, targetDeleteBtn]);
+
+  targetInput.focus();
+}
+
+const renderList = () => {
+  openTargetPage();
+  prevContent = 'main';
+  const headerWrapper = document.querySelector('.header__wrapper');
+  headerWrapper.lastChild.remove()
+
+  const targetNextBtn = document.createElement('div');
+  targetNextBtn.id = 'target-next-btn';
+  targetNextBtn.innerHTML = '';
+  targetNextBtn.innerHTML = `
+  <img src="../src/assets/icons/plus_icon.svg">
+  `
+  targetNextBtn.addEventListener('click', renderPlusTarget);
+
+  appendToParent(headerWrapper, [targetNextBtn]);
+
+  const targets = getStorage('targets');
+  const bodyContents = document.querySelector('.body__contents');
+  bodyContents.innerHTML = '';
+
+  for (let i = 0; i < targets.length; i++) {
+    const targetDiv = createDivWithClass('target');
+    const targetTitle = createDivWithClass('target__title');
+
+    targetDiv.addEventListener('click', renderModifyTarget);
+    targetTitle.innerText = targets[i];
+    targetDiv.appendChild(targetTitle);
+    bodyContents.appendChild(targetDiv);
+  }
+}
+
+
+const createTarget = (event) => {
+  const newTarget = event.target.parentNode.parentNode.querySelector('.target__input').value;
+  const targets = getStorage('targets');
+
+  if (newTarget == '') {
+    alert("목표를 입력해주세요");
+    return;
+  }
+  for (let i = 0; i < targets.length; i++) {
+    if (targets[i] == newTarget) {
+      alert("이미 있는 목표입니다");
+      return;
+    }
+  }
+
+  targets.push(newTarget);
+  updateStorage('targets', targets);
+
+  localStorage.setItem(newTarget, JSON.stringify({}));
+
+  renderTargets();
+  renderToDo();
+  renderList();
+}
+
+const modifyTarget = (event) => {
+  const targetData = event.target.parentNode.parentNode.querySelector('.target__input').placeholder;
+  const newTarget = event.target.parentNode.parentNode.querySelector('.target__input').value;
+
+  if (newTarget == '') {
+    alert("목표를 입력해주세요");
+    return;
+  }
+  if (targetData == newTarget) {
+    prevPage();
+    return;
+  }
+
+  const targets = getStorage('targets');
+  const targetIndex = targets.indexOf(targetData);
+  targets[targetIndex] = newTarget;
+
+  updateStorage('targets', targets);
+  localStorage.setItem(newTarget, localStorage.getItem(targetData));
+  localStorage.removeItem(targetData);
+
+  prevPage();
+}
+
+const deleteTarget = (event) => {
+  const targetData = event.target.parentNode.parentNode.querySelector('.target__input').value;
+  const targets = getStorage('targets');
+  const targetIndex = targets.indexOf(targetData);
+  targets.splice(targetIndex, 1);
+  updateStorage('targets', targets);
+  localStorage.removeItem(targetData);
+
+  prevPage();
+}
+
 /* toDoList 기능 */
 
 
-updateStorage("targets", ["목표 1", "목표 2"]);
 setStorage();
 
 renderCalendar();
