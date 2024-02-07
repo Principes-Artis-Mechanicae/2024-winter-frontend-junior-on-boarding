@@ -10,25 +10,45 @@
 </head>
 
 <body>
-  <div class="wrapper">
+  <div class="wrapper" id="target__wrapper">
+    <div class="header__wrapper">
+      <div id="prev-page-btn">
+        <img class="prev-page" src="../src/assets/icons/chevron-left.svg" onclick="prevPage();">
+      </div>
+      <h1 class="header__title">목표</h1>
+      <div id="target-next-btn"></div>
+    </div>
+    <div class="body__wrapper">
+      <div class="body__contents">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="wrapper" id="main__wrapper">
+    <div id="modal-function">
+      <div class="function__content" id="function__plus" onclick="renderPlusTarget();">목표 등록</div>
+      <div class="function__content" id="function__plus" onclick="renderTargetList()">목표 관리</div>
+    </div>
+    <div class="btn-plus-target" onclick="openFunction();">
+      <img class='btn-target' src="../src/assets/icons/sliders.svg">
+    </div>
     <div class="contents__wrapper">
-      <div class="contents__calender">
-        <div class="calender__wrapper">
-          <div class="calender__title__wrapper">
-            <h1 class="calender__title">
-              2024년 2월
-            </h1>
-            <div class="calender__btn__wrapper">
-              <div class="btn prev">
+      <div class="contents__calendar">
+        <div class="calendar__wrapper">
+          <div class="calendar__title__wrapper">
+            <h1 class="calendar__title"></h1>
+            <div class="calendar__btn__wrapper">
+              <div class="btn prev" onclick="prevMonth();">
                 <img class="prev" src="../src/assets/icons/chevron-left.svg">
               </div>
-              <div class="btn next">
+              <div class="btn next" onclick="nextMonth();">
                 <img class="next" src="../src/assets/icons/chevron-right.svg">
               </div>
             </div>
           </div>
-          <div class="calender__contents">
-            <div class="calender__days">
+          <div class="calendar__contents">
+            <div class="calendar__days">
               <div class="day">월</div>
               <div class="day">화</div>
               <div class="day">수</div>
@@ -37,303 +57,36 @@
               <div class="day">토</div>
               <div class="day">일</div>
             </div>
-            <div class="calender__dateBoard">
-              <!-- week 2 & 3 수정해야함 -->
-              <div class="date"></div>
-              <div class="date"></div>
-              <div class="date"></div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">1</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">2</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">3</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">4</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">5</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">6</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">7</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">8</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">9</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">10</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">11</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">12</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">13</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">14</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">15</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">16</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">17</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">18</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">19</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">20</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">21</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">22</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">23</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">24</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">25</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">26</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">27</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">28</div>
-              </div>
-              <div class="date">
-                <div class="common__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="date__num">29</div>
-              </div>
-            </div>
+            <div class="calendar__dateBoard"></div>
           </div>
         </div>
       </div>
       <div class="contents__toDoList">
         <div class="toDoList__wrapper">
-          <div class="target__wrapper">
-            <div class="target">
-              <div class="target__icon">
-                <img src="../src/assets/icons/box-seam-fill.svg">
-              </div>
-              <div class="target__title">목표 1</div>
-              <div class="btn-plus-todo">
-                <img src="../src/assets/icons/plus_icon.svg">
-              </div>
-            </div>
-            <div class="todo__wrapper">
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-            </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal">
+      <div class="modal-contents">
+        <div class="modal__header">
+          <div class="modal__button">
+            <img class="modal__close" src="../src/assets/icons/x-lg.svg" onclick="closeModal();">
           </div>
-          <div class="target__wrapper">
-            <div class="target">
-              <div class="target__icon">
-                <img src="../src/assets/icons/box-seam-fill.svg">
-              </div>
-              <div class="target__title">목표 1</div>
-              <div class="btn-plus-todo">
-                <img src="../src/assets/icons/plus_icon.svg">
-              </div>
-            </div>
-            <div class="todo__wrapper">
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-              <div class="todo">
-                <div class="todo__icon">
-                  <img id="icon" src="../src/assets/icons/icon.svg">
-                </div>
-                <div class="todo__title">
-                  안녕하세요
-                </div>
-              </div>
-            </div>
+        </div>
+        <div class="modal__body">
+          <div class="modal__content" id="todo__modify" onclick="modifyToDo();">
+            <img class="modify__icon" src="../src/assets/icons/pencil.svg">
+            <p>수정하기</p>
+          </div>
+          <div class="modal__content" id="todo__delete" onclick="deleteToDo();">
+            <img class="delete__icon" src="../src/assets/icons/trash.svg">
+            <p>삭제하기</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
-  </div>
+  <script src="../src/index.js"></script>
 </body>
 
 </html>
