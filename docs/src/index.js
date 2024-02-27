@@ -5,6 +5,37 @@
 // 3. 할일을 입력하면 local storage에 데이터를 저장하고 todoList를 렌더링 함. ✅
 // 4. 할일을 체크하면, 컬러가 바뀜. + 달력 todo 갯수 업데이트 ✅
 // 5. 할일 수정, 삭제 ✅
+
+import './styles/style.css';
+
+// import { createRoot } from '../../node_modules/react-dom/client.js';
+// import { createRoot } from 'react-dom/client.js';
+
+// import React from 'react';
+// import App from './App';
+// import report
+
+import React from 'react';
+import ReactDOM from 'react-dom'
+import {createRoot} from 'react-dom/client';
+import App from './components/app.js';
+
+
+// Clear the existing HTML content
+document.body.innerHTML = `<div id="app"></div>`;
+
+// // Render your React component instead
+// const root = createRoot(document.getElementById('app'));
+// root.render(<App/>);
+// Render your React component instead
+// const root = createRoot(document.getElementById('app'));
+
+// Use the createRoot().render() method to render your component
+// root.render(<App />);
+
+ReactDOM.render(<App/>, document.getElementById('app'));
+
+
 //
 // -------------------------달력 부분---------------------------------
 
@@ -628,7 +659,8 @@ function modifyTodoItem(todoId, dateId) {
       const todoArray = JSON.parse(localStorage.getItem(dateId)) || [];
 
       todoArray.forEach((todo) => {
-        if (todo.id === todoItem.id) {
+        if (todo.id == todoItem.id) {
+          window.console.log(newTodoText.textContent);
           todo.text = newTodoText.textContent;
         }
       });
